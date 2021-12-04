@@ -1,0 +1,22 @@
+version: 1
+disable_existing_loggers: true
+formatters:
+  db_formatter:
+    format: "{asctime}: <{levelname}> - Module: <{filename}> - Function: <{funcName}> - <{message}>"
+    style: "{"
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: db_formatter
+  db_handler:
+    class: logging.FileHandler
+    filename: loggers_control/loggs.log
+    formatter: db_formatter
+loggers:
+  db_logger:
+    level: DEBUG
+    handlers: [console]
+root:
+  level: DEBUG
+  handlers: [console,db_handler]
