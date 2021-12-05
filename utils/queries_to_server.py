@@ -3,8 +3,8 @@ import json
 from db.db import write_token, get_token, clear_token, write_access_token
 from errors import NoUserTokenError, NoWordsError, BadStatusError
 
-AUTH_JWT_URL = 'http://127.0.0.1:8000/auth/jwt/'
-API_URL = 'http://127.0.0.1:8000/api/'
+AUTH_JWT_URL = 'https://guessit-space.herokuapp.com/auth/jwt/'
+API_URL = 'https://guessit-space.herokuapp.com/api/'
 
 async def login_user(user_id, username, password):
     data = {'username': username, 'password': password}
