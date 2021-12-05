@@ -54,7 +54,7 @@ async def make_screen(user_id, url, area, is_general_stat):
         png = driver.get_screenshot_as_png()
     except Exception as e:
         db_logger.error(f'Ошибка -- {e}')
-        
+    db_logger.error(f'Ошибка -- {png}')
     driver.quit()
     #     img = Image.open(io.BytesIO(png))
     #     output = io.BytesIO()
