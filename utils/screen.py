@@ -37,7 +37,7 @@ async def make_screen(user_id, url, area, is_general_stat):
 	    executable_path=os.environ.get('GECKODRIVER_PATH'),
         )
     except Exception as e:
-	db_logger.error(f'Ошибка - {e}')
+    	db_logger.error(f'Ошибка - {e}')
 	
     def interceptor(request):
         request.headers['Authorization'] = f'Bearer {token}'
