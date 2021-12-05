@@ -26,12 +26,14 @@ async def make_screen(user_id, url, area, is_general_stat):
     options.add_argument("-no-sandbox")
 
     binary = FirefoxBinary(os.environ.get('FIREFOX_BIN'))
-
+    print(1312313131313131)
     driver = webdriver.Firefox(
         firefox_binary=binary,
 	executable_path=os.environ.get('GECKODRIVER_PATH'),
 	options=options
     )
+    
+    print(driver)
 
 
     def interceptor(request):
