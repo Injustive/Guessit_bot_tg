@@ -11,6 +11,7 @@ import asyncio
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from loggers_control.loggers import db_logger
+import os
 
 SITE_URL = 'https://guessit-space.herokuapp.com/'
 
