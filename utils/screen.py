@@ -23,9 +23,11 @@ async def make_screen(user_id, url, area, is_general_stat):
     options.add_argument("-headless")
     options.add_argument("-disable-gpu")
     options.add_argument("-no-sandbox")
-
-    binary = FirefoxBinary(os.environ.get('FIREFOX_BIN'))
-    db_logger.error(f'{binary}')
+	
+    try:
+        binary = FirefoxBinary(os.environ.get('FIREFOX_BIN'))
+    except Exception as e:
+        db_logger.error(f'Ошибка - {e}')
 
     binary = FirefoxBinary(os.environ.get('FIREFOX_BIN'))
     driver = webdriver.Firefox(
