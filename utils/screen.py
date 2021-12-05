@@ -30,12 +30,15 @@ async def make_screen(user_id, url, area, is_general_stat):
     except Exception as e:
         db_logger.error(f'Ошибка - {e}')
 
-    binary = FirefoxBinary(os.environ.get('FIREFOX_BIN'))
-    driver = webdriver.Firefox(
-        firefox_binary=binary,
-	executable_path=os.environ.get('GECKODRIVER_PATH'),
-    )
-    db_logger.error(f'{driver}')
+    try:
+        binary = FirefoxBinary(os.environ.get('FIREFOX_BIN'))
+        driver = webdriver.Firefox(
+            firefox_binary=binary,
+	    executable_path=os.environ.get('GECKODRIVER_PATH'),
+        )
+    except Exception as e:
+	db_logger.error(f'Ошибка - {e}')
+	
     def interceptor(request):
         request.headers['Authorization'] = f'Bearer {token}'
 
