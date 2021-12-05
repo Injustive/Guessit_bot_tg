@@ -41,12 +41,9 @@ async def make_screen(user_id, url, area, is_general_stat):
     wait_response()
 
     await asyncio.sleep(2)
-    if is_general_stat:
-        png = driver.find_element(By.TAG_NAME, 'body').screenshot_as_png
-    else:
-        png = driver.get_screenshot_as_png()
+    png = driver.get_screenshot_as_png()
     driver.quit()
-    img = Image.open(io.BytesIO(png))
-    output = io.BytesIO()
-    img.crop(area).save(output, format='BMP')
-    return output
+#     img = Image.open(io.BytesIO(png))
+#     output = io.BytesIO()
+#     img.crop(area).save(output, format='BMP')
+    return png
