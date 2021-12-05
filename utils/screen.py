@@ -8,9 +8,6 @@ from selenium.common.exceptions import TimeoutException
 from .queries_to_server import get_valid_access
 from errors import BadStatusError
 import asyncio
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
-from loggers_control.loggers import db_logger
 import os
 
 SITE_URL = 'https://guessit-space.herokuapp.com/'
@@ -19,25 +16,12 @@ SITE_URL = 'https://guessit-space.herokuapp.com/'
 async def make_screen(user_id, url, area, is_general_stat):
     token = await get_valid_access(user_id)
 
-    options = webdriver.FirefoxOptions()
-    db_logger.error(f'{options}')
-    options.add_argument("-headless")
-    options.add_argument("-disable-gpu")
-    options.add_argument("-no-sandbox")
-	
-    try:
-        binary = FirefoxBinary(os.environ.get('FIREFOX_BIN'))
-    except Exception as e:
-        db_logger.error(f'Ошибка - {e}')
-
-    try:
-        binary = FirefoxBinary(os.environ.get('FIREFOX_BIN'))
-        driver = webdriver.Firefox(
-            firefox_binary=binary,
-	    executable_path=os.environ.get('GECKODRIVER_PATH'),
-        )
-    except Exception as e:
-    	db_logger.error(f'Ошибка - {e}')
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--no-sandbox")
+    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
 	
     def interceptor(request):
         request.headers['Authorization'] = f'Bearer {token}'
