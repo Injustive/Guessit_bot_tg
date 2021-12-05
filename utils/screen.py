@@ -19,7 +19,7 @@ async def make_screen(user_id, url, area, is_general_stat):
     token = await get_valid_access(user_id)
 
     options = webdriver.FirefoxOptions()
-    db_logger.error(f'{options}
+    db_logger.error(f'{options})
     options.add_argument("-headless")
     options.add_argument("-disable-gpu")
     options.add_argument("-no-sandbox")
