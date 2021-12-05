@@ -9,6 +9,7 @@ from .queries_to_server import get_valid_access
 from errors import BadStatusError
 import asyncio
 import os
+from loggers_control.loggers import db_logger
 
 SITE_URL = 'https://guessit-space.herokuapp.com/'
 
@@ -37,9 +38,10 @@ async def make_screen(user_id, url, area, is_general_stat):
         if not request.response.status_code == 200:
             raise BadStatusError
     wait_response()
-	
+    db_logger.error('dsadsadadadadsa')
     await asyncio.sleep(2)
-    png = driver.get_screenshot_as_png()
+    png = driver.screenshot_as_png()
+    db_logger.error(f'{png}')
     driver.quit()
 #     img = Image.open(io.BytesIO(png))
 #     output = io.BytesIO()
