@@ -9,7 +9,7 @@ from .queries_to_server import get_valid_access
 from errors import BadStatusError
 import asyncio
 
-from handlers import SITE_URL
+SITE_URL = 'http://127.0.0.1:8000/'
 
 
 async def make_screen(user_id, url, area, is_general_stat):
