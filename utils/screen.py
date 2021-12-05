@@ -9,7 +9,6 @@ from .queries_to_server import get_valid_access
 from errors import BadStatusError
 import asyncio
 import os
-from loggers_control.loggers import db_logger
 
 SITE_URL = 'https://guessit-space.herokuapp.com/'
 
@@ -32,19 +31,15 @@ async def make_screen(user_id, url, area, is_general_stat):
             WebDriverWait(driver, 5).until(EC.invisibility_of_element((By.CLASS_NAME, 'preloader')))
         except TimeoutException:
             WebDriverWait(driver, 5).until(EC.invisibility_of_element((By.CLASS_NAME, 'preloader')))
-    db_logger.error('Ошибочка')
     driver.request_interceptor = interceptor
     driver.get(SITE_URL + url)
-    db_logger.error('Ошибочка')
     for request in driver.requests:
         if not request.response.status_code == 200:
             raise BadStatusError
-    db_logger.error('Ошибочка')
     wait_response()
 	
     await asyncio.sleep(2)
     png = driver.get_screenshot_as_png()
-    db_logger.error('Ошибочка')
     driver.quit()
 #     img = Image.open(io.BytesIO(png))
 #     output = io.BytesIO()
