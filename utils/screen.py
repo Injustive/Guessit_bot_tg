@@ -18,19 +18,20 @@ async def make_screen(user_id, url, area, is_general_stat):
     token = await get_valid_access(user_id)
     
     options = webdriver.FirefoxOptions()
-	options.log.level = "trace"
+    options.log.level = "trace"
 
-	options.add_argument("-remote-debugging-port=9224")
-	options.add_argument("-headless")
-	options.add_argument("-disable-gpu")
-	options.add_argument("-no-sandbox")
+    options.add_argument("-remote-debugging-port=9224")
+    options.add_argument("-headless")
+    options.add_argument("-disable-gpu")
+    options.add_argument("-no-sandbox")
 
-	binary = FirefoxBinary(os.environ.get('FIREFOX_BIN'))
+    binary = FirefoxBinary(os.environ.get('FIREFOX_BIN'))
 
-	driver = webdriver.Firefox(
-		firefox_binary=binary,
-		executable_path=os.environ.get('GECKODRIVER_PATH'),
-		options=options)
+    driver = webdriver.Firefox(
+        firefox_binary=binary,
+	executable_path=os.environ.get('GECKODRIVER_PATH'),
+	options=options
+    )
 
 
     def interceptor(request):
