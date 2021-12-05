@@ -10,6 +10,7 @@ from errors import BadStatusError
 import asyncio
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+from loggers_control.loggers import db_logger
 
 SITE_URL = 'https://guessit-space.herokuapp.com/'
 
@@ -26,14 +27,14 @@ async def make_screen(user_id, url, area, is_general_stat):
     options.add_argument("-no-sandbox")
 
     binary = FirefoxBinary(os.environ.get('FIREFOX_BIN'))
-    print(1312313131313131)
+    db_logger.error(f'{binary}')
 
     binary = FirefoxBinary(os.environ.get('FIREFOX_BIN'))
     driver = webdriver.Firefox(
         firefox_binary=binary,
 	executable_path=os.environ.get('GECKODRIVER_PATH'),
     )
-
+    db_logger.error(f'{driver}')
     def interceptor(request):
         request.headers['Authorization'] = f'Bearer {token}'
 
