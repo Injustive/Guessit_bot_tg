@@ -84,6 +84,7 @@ async def get_valid_access(user_id):
 
 async def send_stat(user_id, word_id, is_correct):
     access = await get_valid_access(user_id)
+    is_correct = 'true' if is_correct else 'false'
     data = {'word_id': word_id, 'is_correct': is_correct}
     headers = {'Authorization': f'Bearer {access}'}
 
