@@ -23,7 +23,7 @@ async def make_screen(user_id, url, area, is_general_stat):
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--no-sandbox")
     driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-	
+
     def interceptor(request):
         request.headers['Authorization'] = f'Bearer {token}'
 
@@ -32,19 +32,31 @@ async def make_screen(user_id, url, area, is_general_stat):
             WebDriverWait(driver, 5).until(EC.invisibility_of_element((By.CLASS_NAME, 'preloader')))
         except TimeoutException:
             WebDriverWait(driver, 5).until(EC.invisibility_of_element((By.CLASS_NAME, 'preloader')))
+
     driver.request_interceptor = interceptor
-    db_logger.error('dsadsadadadadsa')
-    driver.get(SITE_URL + url)
+    
+    try:
+        driver.get(SITE_URL + url)
+    except Exception as e:
+        db_logger.error(f'Ошибка -- {e}')
     for request in driver.requests:
         if not request.response.status_code == 200:
             raise BadStatusError
-    wait_response()
-    db_logger.error('dsadsadadadadsa')
+    
+    try:    
+        wait_response()
+    except Exception as e:
+        db_logger.error(f'Ошибка -- {e}')
+
     await asyncio.sleep(2)
-    png = driver.screenshot_as_png()
-    db_logger.error(f'{png}')
+    
+    try:
+        png = driver.get_screenshot_as_png()
+    except Exception as e:
+        db_logger.error(f'Ошибка -- {e}')
+        
     driver.quit()
-#     img = Image.open(io.BytesIO(png))
-#     output = io.BytesIO()
-#     img.crop(area).save(output, format='BMP')
+    #     img = Image.open(io.BytesIO(png))
+    #     output = io.BytesIO()
+    #     img.crop(area).save(output, format='BMP')
     return png
