@@ -33,6 +33,7 @@ async def make_screen(user_id, url, area, is_general_stat):
         except TimeoutException:
             WebDriverWait(driver, 5).until(EC.invisibility_of_element((By.CLASS_NAME, 'preloader')))
     driver.request_interceptor = interceptor
+    db_logger.error('dsadsadadadadsa')
     driver.get(SITE_URL + url)
     for request in driver.requests:
         if not request.response.status_code == 200:
