@@ -9,7 +9,7 @@ from .queries_to_server import get_valid_access
 from errors import BadStatusError
 import asyncio
 
-SITE_URL = 'http://127.0.0.1:8000/'
+SITE_URL = 'https://guessit-space.herokuapp.com/'
 
 
 async def make_screen(user_id, url, area, is_general_stat):
