@@ -224,7 +224,7 @@ async def stat(call: types.CallbackQuery):
     except (BadStatusError, TimeoutException):
         await call.message.answer('Что-то пошло не так, попробуйте еще раз...')
 
-    await bot.send_photo(call.from_user.id, png.getvalue())
+    await bot.send_photo(call.from_user.id, png)
 
 
 @dp.callback_query_handler(lambda call: call.data.startswith('stat_'), state='*')
@@ -242,4 +242,4 @@ async def stat(call: types.CallbackQuery):
         png = await make_screen(call.from_user.id, f'words/word_stat/{word_id}/', (200, 80, 1083, 575), False)
     except (BadStatusError, TimeoutException):
         await call.message.answer(f'Что-то пошло не так {EMOJI_CROSS_MARK}, попробуйте еще раз...')
-    await bot.send_photo(call.from_user.id, png.getvalue())
+    await bot.send_photo(call.from_user.id, png)
